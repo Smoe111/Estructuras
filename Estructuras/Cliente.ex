@@ -61,7 +61,7 @@ defmodule Cliente do
    end
 
    defp convertir_cliente_linea_csv(cliente) do
-    "#{cliente.nombre}, #{cliente.edad}, #{cliente.altura} \n"
+    "#{cliente.nombre}, #{cliente.edad}, #{cliente.altura}"
 
   end
 
@@ -69,30 +69,28 @@ defmodule Cliente do
 
     clientes
     |>generar_mensaje_clientes(&convertir_cliente_linea_csv/1)
-    |>(&("nombre, edad, altura \n" <> &1)).()
+    |>(&("nombre, edad, altura \n " <> &1)).() #titulo del cvs
     |>(&File.write( nombre, &1)).()
 
    end
-   
-   defp convertir_cadena_cliente(cadena) do
-    case String.split(cadena, ",") |> Enum.map(&String.trim/1) do
-      [nombre, edad, altura] ->
-        edad = String.to_integer(edad)
-        altura = String.to_float(altura)
-        Cliente.crear(nombre, edad, altura)
 
-      _ ->
-        # Maneja líneas vacías o malformadas
-        IO.puts("Línea malformada o vacía: #{cadena}")
-        nil
+   defp convertir_cadena_cliente(cadena) do
+
+    [nombre, edad, altura] = cadena
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    edad = edad |> String.to_integer()
+    altura = altura |> String.to_float()
+    Cliente.crear(nombre, edad, altura)
     end
-  end
 
    def leer_csv(nombre) do
     nombre
     |> File.stream!()
-    |> Stream.drop(1) # ignora los encabezados
-    |> Enum.map(&convertir_cadena_cliente/1)
+    |> Stream.drop(1)  # ignora los encabezados
+    |> Enum.reject(&is_nil/1)
+    |> Enum.map(&convertir_cadena_cliente/1)  # Filtrar valores nil
+
     end
 
 end

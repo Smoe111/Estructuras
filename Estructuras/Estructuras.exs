@@ -2,13 +2,19 @@ defmodule Estructuras do
 
   def main do
 
-    crear_lista_clientes()
-    |>Cliente.generar_mensaje_clientes(&generar_mensaje/1)
-    |>Util.mostrarMensaje()
+    "clientes.csv"
+    |> Cliente.leer_csv()
+    |> filtrar_datos()
+    |> Cliente.generar_mensaje_clientes(&generar_mensaje/1)
+    |> Util.mostrarMensaje()
 
-    "Ingrese los datos del cliente: "
-    |> Cliente.ingresar(:cliente)
-    |> Cliente.escribir_csv("clientes.csv")
+    #crear_lista_clientes()
+    #|>Cliente.generar_mensaje_clientes(&generar_mensaje/1)
+    #|>Util.mostrarMensaje()
+
+    #"Ingrese los datos del cliente: "
+    #|> Cliente.ingresar(:cliente)
+    #|> Cliente.escribir_csv("clientes.csv")
 
   end
 
