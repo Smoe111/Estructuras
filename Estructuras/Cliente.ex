@@ -73,4 +73,26 @@ defmodule Cliente do
     |>(&File.write( nombre, &1)).()
 
    end
+   
+   defp convertir_cadena_cliente(cadena) do
+    case String.split(cadena, ",") |> Enum.map(&String.trim/1) do
+      [nombre, edad, altura] ->
+        edad = String.to_integer(edad)
+        altura = String.to_float(altura)
+        Cliente.crear(nombre, edad, altura)
+
+      _ ->
+        # Maneja líneas vacías o malformadas
+        IO.puts("Línea malformada o vacía: #{cadena}")
+        nil
+    end
+  end
+
+   def leer_csv(nombre) do
+    nombre
+    |> File.stream!()
+    |> Stream.drop(1) # ignora los encabezados
+    |> Enum.map(&convertir_cadena_cliente/1)
+    end
+
 end
