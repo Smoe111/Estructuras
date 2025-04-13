@@ -18,7 +18,7 @@ defmodule Docente do
     |> Enum.join("\n")
   end
 
-  defp convertir_cadena_docente(cadena) do
+  def convertir_cadena_docente(cadena) do
 
     [periodo, facultad, programa, genero, formacion, vinculacion, dedicacion, cargo, categoria] =
       cadena

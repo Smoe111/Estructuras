@@ -60,7 +60,7 @@ defmodule Cliente do
     |>Enum.join("\n")
    end
 
-   defp convertir_cliente_linea_csv(cliente) do
+   def convertir_cliente_linea_csv(cliente) do
     "#{cliente.nombre}, #{cliente.edad}, #{cliente.altura}"
 
   end
@@ -74,7 +74,7 @@ defmodule Cliente do
 
    end
 
-   defp convertir_cadena_cliente(cadena) do
+   def convertir_cadena_cliente(cadena) do
 
     [nombre, edad, altura] = cadena
     |> String.split(",")

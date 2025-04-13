@@ -3,9 +3,9 @@ defmodule Estructuras do
   def main do
 
     "clientes.csv"
-    |> Cliente.leer_csv()
-    |> filtrar_datos()
-    |> Cliente.generar_mensaje_clientes(&generar_mensaje/1)
+    |> CVS.leer_csv(&Cliente.convertir_cadena_cliente/1)
+    |> Enum.filter(&(&1.edad < 21))
+    |> CVS. generar_mensaje_csv(&Cliente.generar_mensaje/1)
     |> Util.mostrarMensaje()
 
     #crear_lista_clientes()
@@ -38,13 +38,6 @@ defmodule Estructuras do
     Cliente.crear("Julian", 51, 1.73),
     Cliente.crear("Isabella", 6, 1.00),
     Cliente.crear("Sara", 8, 1.30)]
-  end
-
-  defp filtrar_datos(datos) do
-
-    datos
-    |> Enum.filter(fn (cliente) -> cliente.edad < 21 end)
-
   end
 
 
