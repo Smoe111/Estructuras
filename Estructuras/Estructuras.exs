@@ -3,18 +3,19 @@ defmodule Estructuras do
   def main do
 
     "clientes.csv"
-    |> CVS.leer_csv(&Cliente.convertir_cadena_cliente/1)
+    |> CSV.leer_csv(&Cliente.convertir_cadena_cliente/1)
     |> Enum.filter(&(&1.edad < 21))
-    |> CVS. generar_mensaje_csv(&Cliente.generar_mensaje/1)
+    |> CSV.generar_mensaje_csv(&Cliente.generar_mensaje/1)
     |> Util.mostrarMensaje()
 
-    #crear_lista_clientes()
-    #|>Cliente.generar_mensaje_clientes(&generar_mensaje/1)
-    #|>Util.mostrarMensaje()
 
-    #"Ingrese los datos del cliente: "
-    #|> Cliente.ingresar(:cliente)
-    #|> Cliente.escribir_csv("clientes.csv")
+    crear_lista_clientes()
+    |>Cliente.generar_mensaje_clientes(&generar_mensaje/1)
+    |>Util.mostrarMensaje()
+
+    "Ingrese los datos del cliente: "
+    |> Cliente.ingresar(:cliente)
+    |> Cliente.escribir_csv("clientes.csv")
 
   end
 
